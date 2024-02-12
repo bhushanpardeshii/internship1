@@ -1,7 +1,7 @@
-
+import "./global.css";
+import { FirstData, SecondData, ThirdData } from './utils/datapoints';
 import { ColorType, createChart } from 'lightweight-charts';
 import { useEffect, useRef, useState } from 'react';
-
 function App() {
   const chartContainerRef = useRef();
   const toolipRef = useRef();
@@ -14,44 +14,8 @@ function App() {
   const [showSecondChart, setShowSecondChart] = useState(true);
   const [showThirdChart, setShowThirdChart] = useState(true);
 
-
   useEffect(() => {
-    const FirstData = [
-      { time: '2018-12-22', value: 27.51 },
-      { time: '2018-12-23', value: 28.11 },
-      { time: '2018-12-24', value: 27.02 },
-      { time: '2018-12-25', value: 27.32 },
-      { time: '2018-12-26', value: 25.17 },
-      { time: '2018-12-27', value: 28.89 },
-      { time: '2018-12-28', value: 25.46 },
-      { time: '2018-12-29', value: 25.92 },
-      { time: '2018-12-30', value: 25.68 },
-      { time: '2018-12-31', value: 27.67 },
-    ];
-    const SecondData = [
-      { time: '2018-12-22', value: 28.51 },
-      { time: '2018-12-23', value: 30.11 },
-      { time: '2018-12-24', value: 25.02 },
-      { time: '2018-12-25', value: 25.32 },
-      { time: '2018-12-26', value: 24.17 },
-      { time: '2018-12-27', value: 24.99 },
-      { time: '2018-12-28', value: 28.46 },
-      { time: '2018-12-29', value: 26.01 },
-      { time: '2018-12-30', value: 24.68 },
-      { time: '2018-12-31', value: 25.67 },
-    ]
-    const ThirdData = [
-      { time: '2018-12-22', value: 26.51 },
-      { time: '2018-12-23', value: 28.11 },
-      { time: '2018-12-24', value: 29.02 },
-      { time: '2018-12-25', value: 26.32 },
-      { time: '2018-12-26', value: 26.17 },
-      { time: '2018-12-27', value: 24.99 },
-      { time: '2018-12-28', value: 26.46 },
-      { time: '2018-12-29', value: 27.05 },
-      { time: '2018-12-30', value: 23.68 },
-      { time: '2018-12-31', value: 24.67 },
-    ]
+
     const chart = createChart(chartContainerRef.current, {
       layout: {
         background: { type: ColorType.Solid, color: "white" }
@@ -92,6 +56,7 @@ function App() {
         const coordinate = FirstChart.priceToCoordinate(Firstchartdata.value)
         const shiftedCoordinate = param.point.x;
 
+
         toolipRef.current.style.left = shiftedCoordinate + "px";
         toolipRef.current.style.top = coordinate + "px";
         const Secondchartdata = param.seriesData.get(SecondChart);
@@ -116,6 +81,7 @@ function App() {
       window.removeEventListener('resize', handleResize);
     };
   }, [showSecondChart, showFirstChart, showThirdChart]);
+
   const toggleFirstChartVisibility = () => {
     setShowFirstChart(prevState => !prevState);
 
@@ -128,7 +94,8 @@ function App() {
   };
 
 
-  return <div ref={chartContainerRef} style={{ position: 'relative' }}>
+  return <div>
+    <div ref={chartContainerRef} style={{ position: 'relative' }}></div>
     <div ref={toolipRef} style={{
       position: 'absolute',
       width: 120,
@@ -148,52 +115,59 @@ function App() {
       <p><b>Stock C</b> {ThirdchartPrice?.value} </p>
 
     </div>
-    <button style={{
-      position: 'absolute',
-      top: '110%',
-      left: '20%',
-      padding: '10px 20px',
-      backgroundColor: '#2962FF',
-      color: 'black',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    }}
-      onClick={toggleFirstChartVisibility}>
-      {showFirstChart ? 'Hide Stock A' : 'Show Stock A'}
-    </button>
+    <div className='buttons'>
 
-    <button style={{
-      position: 'absolute',
-      top: '110%',
-      left: '40%',
-      padding: '10px 20px',
-      backgroundColor: '#FDEE00',
-      color: 'black',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-    }}
-      onClick={toggleSecondChartVisibility}>
-      {showSecondChart ? 'Hide Stock B' : 'Show Stock B '}
-    </button>
 
-    <button style={{
-      position: 'absolute',
-      top: '110%',
-      left: '60%',
-      padding: '10px 20px',
-      backgroundColor: '#008D00',
-      color: 'black',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
+      <button style={{
+        position: 'absolute',
+        top: '85%',
+        left: '20%',
+        padding: '10px 20px',
+        backgroundColor: '#2962FF',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
 
-    }}
-      onClick={toggleThirdChartVisibility}>
-      {showThirdChart ? 'Hide Stock C' : 'Show Stock C'}
-    </button>
+      }}
+        onClick={toggleFirstChartVisibility}>
+        {showFirstChart ? 'Hide Stock A' : 'Show Stock A'}
+      </button>
+
+      <button style={{
+        position: 'absolute',
+        top: '85%',
+        left: '40%',
+        padding: '10px 20px',
+        backgroundColor: '#FDEE00',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+      }}
+        onClick={toggleSecondChartVisibility}>
+        {showSecondChart ? 'Hide Stock B' : 'Show Stock B '}
+      </button>
+
+      <button style={{
+        position: 'absolute',
+        top: '85%',
+        left: '60%',
+        padding: '10px 20px',
+        backgroundColor: '#008D00',
+        color: 'black',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+
+      }}
+        onClick={toggleThirdChartVisibility}>
+        {showThirdChart ? 'Hide Stock C' : 'Show Stock C'}
+      </button>
+    </div>
+
   </div>
+
 }
 
 export default App;
