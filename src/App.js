@@ -108,11 +108,17 @@ function App() {
       zIndex: 2,
     }}>
       <p>{currentTime}</p>
-      <p><b>Stock A </b>  {FirstchartPrice?.value}</p>
+      {showFirstChart && (
+        <p><b>Stock A </b>  {FirstchartPrice?.value}</p>
+      )}
 
-      <p><b>Stock B </b>  {SecondchartPrice?.value}</p>
+      {showSecondChart && (
+        <p><b>Stock B </b>  {SecondchartPrice?.value}</p>
+      )}
 
-      <p><b>Stock C</b> {ThirdchartPrice?.value} </p>
+      {showThirdChart && (
+        <p><b>Stock C </b>  {ThirdchartPrice?.value}</p>
+      )}
 
     </div>
     <div className='buttons'>
