@@ -33,21 +33,23 @@ function App() {
       bottomColor: 'rgba(41, 98, 255, 0.28)',
     });
 
-
     const SecondChart = chart.addAreaSeries({
       visible: showSecondChart,
       lineColor: '#FFC64C', topColor: '#FDEE00',
       bottomColor: 'rgba(255,240,100,0.60)',
     });
+
     const ThirdChart = chart.addAreaSeries({
       visible: showThirdChart,
       lineColor: '#004C00', topColor: '#008D00',
       bottomColor: 'rgba(0,255,209,0.50)',
     });
 
+
     FirstChart.setData(FirstData);
     SecondChart.setData(SecondData);
     ThirdChart.setData(ThirdData);
+
 
     chart.subscribeCrosshairMove((param) => {
       if (param.time) {
@@ -65,6 +67,11 @@ function App() {
         const Thirdchartdata = param.seriesData.get(ThirdChart);
         setThirdchartPrice(Thirdchartdata);
         setCurrentTime(param.time);
+        if (toolipRef.current) {
+          toolipRef.current.style.display = 'block';
+          toolipRef.current.style.left = param.point.x + 10 + 'px';
+          toolipRef.current.style.top = param.point.y + 'px';
+        }
 
       }
     });
@@ -98,6 +105,7 @@ function App() {
     <div ref={chartContainerRef} style={{ position: 'relative' }}></div>
     <div ref={toolipRef} style={{
       position: 'absolute',
+      display: 'none',
       width: 120,
       height: 150,
       border: '1px solid',
